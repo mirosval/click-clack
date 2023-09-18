@@ -1,6 +1,9 @@
 dev:
 	npm run dev
 
+build:
+	npm run build
+
 initialize:
 	git init .
 	npx create-next-app@latest frontend \

@@ -17,6 +17,7 @@
           packages = [
             pkgs.nodejs
             pkgs.nodePackages.npm
+            pkgs.netlify-cli
           ];
         }; 
       }

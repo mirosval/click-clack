@@ -3,9 +3,8 @@ import { useWindowSize } from "@uidotdev/usehooks";
 import { motion } from "framer-motion";
 import React, { RefObject, useEffect, useRef, useState } from 'react';
 import Confetti from 'react-confetti';
-import useSound from 'use-sound';
 // import sounds from "../../assets/sounds.mp3";
-import {Howl, Howler} from "howler";
+import { Howl } from "howler";
 
 // The size of the circle at the start of the game
 const INITIAL_DIAMETER = 0.4;

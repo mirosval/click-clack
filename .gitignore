@@ -1,3 +1,6 @@
 .direnv
 .next
 node_modules
+
+# Local Netlify folder
+.netlify
