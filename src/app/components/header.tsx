@@ -21,7 +21,7 @@ export default function Header(props: HeaderProps) {
             }
           }}
           >
-          <Cog6ToothIcon className="h-6 w-6 text-gray-300" aria-hidden={true} />
+          <Cog6ToothIcon className="h-6 w-6 dark:text-gray-300 text-gray-700" aria-hidden={true} />
         </motion.div>
         <span className="sr-only">Settings</span>
       </a>
@@ -36,7 +36,7 @@ export default function Header(props: HeaderProps) {
             }
           }}
           >
-          <QuestionMarkCircleIcon className="h-6 w-6 text-gray-300" aria-hidden={true} />
+          <QuestionMarkCircleIcon className="h-6 w-6 dark:text-gray-300 text-gray-700" aria-hidden={true} />
         </motion.div>
         <span className="sr-only">About</span>
       </a>

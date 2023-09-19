@@ -80,7 +80,7 @@ export default function ClickClack(props: ClickClackProps) {
   console.log(props.level, circle);
   return <div ref={containerRef} className="playground w-full h-full p-5 static">
     <motion.div 
-      className="bg-white rounded-full opacity-0 absolute text-gray-200 text-center line-clamp-1 hover:cursor-pointer"
+      className="bg-black dark:bg-white border-black dark:border-white rounded-full opacity-0 absolute text-gray-800 dark:text-gray-200 text-center line-clamp-1 hover:cursor-pointer"
       style={{
         height: `${circle.d}px`, 
         width: `${circle.d}px`,
