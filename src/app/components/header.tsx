@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 type HeaderProps = {
   level: number;
   speed: number;
+  onClickSettings: () => void;
+  onClickAbout: () => void;
 }
 
 export default function Header(props: HeaderProps) {
@@ -12,7 +14,7 @@ export default function Header(props: HeaderProps) {
     <div className="cursor-default">Level {props.level} / 10</div>
     <div className="cursor-default">Speed {props.speed}ms</div>
     <div>
-      <a href="#">
+      <a href="#" onClick={props.onClickSettings}>
         <motion.div
           whileHover={{
             rotate: 30,
@@ -27,7 +29,7 @@ export default function Header(props: HeaderProps) {
       </a>
     </div>
     <div>
-      <a href="#">
+      <a href="#" onClick={props.onClickAbout}>
         <motion.div
           whileHover={{
             rotate: 30,

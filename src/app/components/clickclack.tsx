@@ -1,7 +1,7 @@
 'use client';
 import { useWindowSize } from "@uidotdev/usehooks";
 import { motion } from "framer-motion";
-import React, { RefObject, useEffect, useRef, useState } from 'react';
+import React, { RefObject, useEffect, useMemo, useRef, useState } from 'react';
 import Confetti from 'react-confetti';
 // import sounds from "../../assets/sounds.mp3";
 import { Howl } from "howler";
@@ -29,10 +29,12 @@ type Circle = {
 }
 
 const useContainerDimensions = (ref: RefObject<HTMLDivElement>): ContainerDim => {
-  const defaultContainerDim: ContainerDim = {
-    w: 0, 
-    h:0
-  };
+  const defaultContainerDim: ContainerDim = useMemo(() => {
+    return {
+      w: 0, 
+      h: 0
+    };
+  }, []);
   const [dim, setDim] = useState<ContainerDim>(defaultContainerDim);
   useEffect(() => {
     const getDim = () => ({
@@ -49,7 +51,7 @@ const useContainerDimensions = (ref: RefObject<HTMLDivElement>): ContainerDim =>
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [ref]);
+  }, [defaultContainerDim, ref]);
   return dim;
 };
 
@@ -70,7 +72,6 @@ function circleFromLevel(containerDim: ContainerDim, level: number): Circle {
 }
 
 export default function ClickClack(props: ClickClackProps) {
-  const [lastConfetti, setLastConfetti] = useState(1);
   const containerRef = useRef(null);
   const containerDim = useContainerDimensions(containerRef);
   const size = useWindowSize();
@@ -122,4 +123,3 @@ export default function ClickClack(props: ClickClackProps) {
     )}
   </div>;
 }
-
