@@ -23,7 +23,7 @@ export default function Home() {
   const [confetti, setConfetti] = useState(false);
   const [start, setStart] = useState(new Date());
   const [speeds, setSpeeds] = useState<number[]>([]);
-  const [showingSettings, setShowingSettings] = useState<boolean>(true);
+  const [showingSettings, setShowingSettings] = useState<boolean>(false);
   const [showingAbout, setShowingAbout] = useState<boolean>(false);
   const onProgress: () => void = () => {
     const now = new Date();
