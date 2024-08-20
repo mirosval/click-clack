@@ -6,7 +6,7 @@
 
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
-      let 
+      let
         pkgs = import nixpkgs {
           system = system;
         };
@@ -14,12 +14,13 @@
       {
         packages.default = pkgs.hello;
         devShells.default = pkgs.mkShellNoCC {
-          packages = [
-            pkgs.nodejs
-            pkgs.nodePackages.npm
-            pkgs.netlify-cli
+          packages = with pkgs; [
+            nodejs
+            nodePackages.npm
+            netlify-cli
+            eslint_d
           ];
-        }; 
+        };
       }
     );
 }
