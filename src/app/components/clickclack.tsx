@@ -94,6 +94,9 @@ function ClickClack(props: ClickClackProps) {
     onKeyDown={(e) => {
       if (e.key.toLowerCase() === letter.toLowerCase()) {
         props.onProgress(props.level + 1);
+      } else if (e.key.toLowerCase().match("[a-z]")) {
+        const next = Math.max(props.level - 1, 0);
+        props.onProgress(next);
       }
     }}
     tabIndex={0}

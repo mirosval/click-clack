@@ -25,13 +25,13 @@ export default function Home() {
   const [speeds, setSpeeds] = useState<number[]>([]);
   const [showingSettings, setShowingSettings] = useState<boolean>(false);
   const [showingAbout, setShowingAbout] = useState<boolean>(false);
-  const onProgress: () => void = () => {
+  const onProgress: (_: number) => void = (nextLevel: number) => {
     const now = new Date();
     const speed = now.getTime() - start.getTime();
     setSpeed(speed);
     setSpeeds([...speeds, speed]);
     if (speed < DIFICULTY_MAP[difficulty]) {
-      setLevel(level + 1);
+      setLevel(nextLevel);
       setConfetti(true);
     } else {
       setConfetti(false);
