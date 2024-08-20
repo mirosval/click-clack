@@ -1,10 +1,12 @@
 'use client';
+
 import { useWindowSize } from "@uidotdev/usehooks";
 import { motion } from "framer-motion";
 import React, { RefObject, useEffect, useMemo, useRef, useState } from 'react';
 import Confetti from 'react-confetti';
 // import sounds from "../../assets/sounds.mp3";
 import { Howl } from "howler";
+import dynamic from "next/dynamic";
 
 // The size of the circle at the start of the game
 const INITIAL_DIAMETER = 0.4;
@@ -62,8 +64,9 @@ function clamp(val: number, min: number, max: number): number {
 function circleFromLevel(containerDim: ContainerDim, level: number): Circle {
   const minDim = Math.min(containerDim.w, containerDim.h);
   const d = clamp(INITIAL_DIAMETER * (minDim / level), 10, minDim);
-  const x = Math.random() * (containerDim.w - d);
-  const y = Math.random() * (containerDim.h - d);
+  // the random x/y should be within a rectangle that is at least 1 diameter of the circle smaller than the screen
+  const x = d + Math.random() * (containerDim.w - (2 * d));
+  const y = d + Math.random() * (containerDim.h - (2 * d));
   return {
     x,
     y,
@@ -71,15 +74,30 @@ function circleFromLevel(containerDim: ContainerDim, level: number): Circle {
   };
 }
 
-export default function ClickClack(props: ClickClackProps) {
+function randomLetter(): string {
+  const charCode = 65 + Math.round(Math.random() * 25);
+  return String.fromCharCode(charCode);
+}
+
+function ClickClack(props: ClickClackProps) {
   const containerRef = useRef(null);
   const containerDim = useContainerDimensions(containerRef);
   const size = useWindowSize();
   const width = size.width ?? 1;
   const height = size.height ?? 1;
   const circle = circleFromLevel(containerDim, props.level);
-  console.log(props.level, circle);
-  return <div ref={containerRef} className="playground w-full h-full p-5 static">
+  const letter = randomLetter();
+  //console.log(props.level, circle);
+  return <div 
+    ref={containerRef} 
+    className="playground w-full h-full p-5 static"
+    onKeyDown={(e) => {
+      if (e.key.toLowerCase() === letter.toLowerCase()) {
+        props.onProgress(props.level + 1);
+      }
+    }}
+    tabIndex={0}
+    >
     <motion.div 
       className="bg-black dark:bg-white border-black dark:border-white rounded-full opacity-0 absolute text-gray-800 dark:text-gray-200 text-center line-clamp-1 hover:cursor-pointer"
       style={{
@@ -112,7 +130,11 @@ export default function ClickClack(props: ClickClackProps) {
         const newScore = props.level + 1;
         props.onProgress(newScore);
       }}
-      >{ props.level < 4 && <>Click Me!</> }</motion.div>
+      >
+        { // props.level < 4 && <span className="font-size-lg text-red-600">{letter}</span> 
+        }
+        <div className="grid place-items-center text-3xl h-full w-full font-bold text-red-500">{letter}</div>
+      </motion.div>
     { props.confetti && (
       <Confetti
         width={width}
@@ -123,3 +145,5 @@ export default function ClickClack(props: ClickClackProps) {
     )}
   </div>;
 }
+
+export default dynamic(() => Promise.resolve(ClickClack), { ssr: false});

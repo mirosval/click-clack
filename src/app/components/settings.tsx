@@ -2,6 +2,7 @@
 
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {Difficulty } from "../page";
+import React from "react";
 
 type SettingsProps = {
   difficulty: Difficulty,
@@ -12,21 +13,31 @@ type SettingsProps = {
 export default function Settings(props: SettingsProps) {
   const isSelectedDifficulty = (diff: Difficulty) => props.difficulty === diff;
   const selectDifficulty = (diff: Difficulty) => props.setDifficulty(diff);
+  const close = (event: React.MouseEvent) => {
+      event.stopPropagation();
+      props.onClickClose();
+  };
   return <div 
     className="absolute grid h-screen w-screen"
     style={{
       gridTemplateRows: '1fr 3fr 1fr',
       gridTemplateColumns: '1fr 3fr 1fr',
     }}
+    onClick={close}
     >
-    <div className="flex flex-col col-start-2 row-start-2 bg-gray-950 border border-gray-700 rounded-lg">
+    <div 
+      className="flex flex-col col-start-2 row-start-2 bg-gray-950 border border-gray-700 rounded-lg"
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      >
       <div className="flex px-6 py-4 bg-gray-900 rounded-t-lg">
         <h2 className="text-lg grow font-bold">Settings</h2>
         <span 
           className="w-7 h-7 cursor-pointer"
           onClick={(event) => {
-            props.onClickClose();
             event.stopPropagation();
+            props.onClickClose();
           }}
           >
           <XMarkIcon />
